@@ -360,6 +360,8 @@ def extract_face(image_path):
     encoded_face = base64.b64encode(buffer).decode('utf-8')
 
     return f"data:image/jpeg;base64,{encoded_face}"
+from django.conf import settings
+import os
 
 @csrf_exempt
 def process_aadhaar_image(request):
@@ -369,12 +371,16 @@ def process_aadhaar_image(request):
     if request.method == 'POST' and request.FILES.get('image'):
         
         uploaded_file = request.FILES['image']
+        print("uploaded file == ",uploaded_file)
         file_path = default_storage.save(uploaded_file.name, uploaded_file)
+        print("file path == ",file_path)
+        absolute_file_path = os.path.join(settings.MEDIA_ROOT, file_path)
+
 
         try:
         
-            ocr_text = extract_text_from_image(file_path)
-            details = extract_details_from_doc(ocr_text,file_path)
+            ocr_text = extract_text_from_image(absolute_file_path)
+            details = extract_details_from_doc(ocr_text,absolute_file_path)
             response = {"status": "success", "data": details}
         except Exception as e:
             response = {"status": "error", "message": str(e)}

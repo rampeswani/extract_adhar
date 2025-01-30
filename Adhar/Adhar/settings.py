@@ -29,14 +29,16 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
-# MEDIA_URLS ='/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# Correct settings for handling uploaded files (media)
+MEDIA_URL = '/media/'  # URL to access uploaded files
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Directory to store uploaded files
 
-
-# STATIC_URL = '/static/'
-# STATICFILES_DIRS = [
-#     BASE_DIR / 'static',
-# ]
+# Static files configuration (CSS, JS, images for front-end)
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',  # Make sure this is for static files, not uploaded files
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Where collectstatic will gather files
 
 
 
