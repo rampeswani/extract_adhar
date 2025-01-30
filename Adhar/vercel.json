@@ -1,51 +1,24 @@
-// {
-//     "builds": [{
-//         "src": "Adhar/wsgi.py",
-//         "use": "@vercel/python",
-//         "config": { "maxLambdaSize": "15mb", "runtime": "python3.10" }
-//     },
-//     {
-//         "src": "build_files.sh",
-//         "use": "@vercel/static-build",
-//         "config": { "distDir": "staticfiles_build" }
-//     }],
-//     "routes": [
-//         {
-//             "src": "/static/(.*)",
-//             "dest": "/static/$1"
-//         },
-//         {
-//             "src": "/(.*)",
-//             "dest": "Adhar/wsgi.py"
-//         }
-//     ]
-// }
-
-
 {
-    "builds": [
-      {
-        "src": "Adhar/manage.py",
+    "builds": [{
+        "src": "Adhar/wsgi.py",
         "use": "@vercel/python",
-        "config": {
-          "runtime": "python3.10",
-          "buildCommand": "pip install -r requirements.txt && python3 manage.py collectstatic --noinput --clear"
-        }
-      },
-      {
-        "src": "static/*",
-        "use": "@vercel/static"
-      }
-    ],
+        "config": { "maxLambdaSize": "15mb", "runtime": "python3.10",
+    "buildCommand": "pip install -r requirements.txt && python3 manage.py collectstatic --noinput --clear"
+    }
+    },
+    {
+        "src": "build_files.sh",
+        "use": "@vercel/static-build",
+        "config": { "distDir": "staticfiles_build" }
+    }],
     "routes": [
-      {
-        "src": "/static/(.*)",
-        "dest": "/static/$1"
-      },
-      {
-        "src": "/(.*)",
-        "dest": "Adhar/manage.py"
-      }
+        {
+            "src": "/static/(.*)",
+            "dest": "/static/$1"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "Adhar/wsgi.py"
+        }
     ]
-  }
-  
+}
