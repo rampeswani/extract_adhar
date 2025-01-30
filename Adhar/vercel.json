@@ -1,6 +1,6 @@
 {
     "builds": [{
-        "src": "Adhar/wsgi.py",
+        "src": "Adhar/server.py",
         "use": "@vercel/python",
         "config": { "maxLambdaSize": "15mb", "runtime": "python3.10",
     "buildCommand": "pip install -r requirements.txt && python3 manage.py collectstatic --noinput --clear"
@@ -18,7 +18,7 @@
         },
         {
             "src": "/(.*)",
-            "dest": "Adhar/wsgi.py"
+            "dest": "Adhar/server.py"
         }
     ]
 }
